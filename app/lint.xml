@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+        <!-- Disable all checks in the example app -->
+        <issue id="all">
+                <ignore path="**/*" />
+                <ignore path="*" />
+        </issue>
+</lint>

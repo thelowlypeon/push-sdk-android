@@ -1,0 +1,124 @@
+apply plugin: 'maven'
+
+repositories {
+    maven { url "https://raw.github.com/synergian/wagon-git/releases" }
+}
+
+configurations {
+    deployLibrary
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    deployLibrary "ar.com.synergian:wagon-git:0.2.0"
+}
+
+task androidJavadocs(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.sourceFiles
+}
+
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.sourceFiles
+}
+
+task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    classifier = 'javadoc'
+    from androidJavadocs.destinationDir
+}
+
+artifacts {
+    archives androidJavadocsJar
+}
+
+task lookForArtifacts {
+    doLast {
+        def repositoryUrl = 'https://api.github.com/repos/' + COMPANY + '/' + REPOSITORY_NAME + '/releases/tags/' + ARTIFACT_VERSION
+        def artifactExists = urlExists(repositoryUrl)
+
+        if (urlExists(repositoryUrl)) {
+            throw new RuntimeException("Artifact with version " + ARTIFACT_VERSION + " already exist - not executing uploadArchives")
+        }
+        return true
+    }
+}
+
+task publish(dependsOn: ['uploadArchives', 'tagRelease'])
+
+uploadArchives {
+    repositories.mavenDeployer {
+        configuration = configurations.deployLibrary
+        repository(url: 'git:releases://git@github.com:' + COMPANY + '/' + REPOSITORY_NAME + '.git')
+
+        uniqueVersion = true
+
+        pom.project {
+            groupId = ARTIFACT_PACKAGE
+            version = ARTIFACT_VERSION
+            artifactId = ARTIFACT_NAME
+            packaging ARTIFACT_PACKAGING
+        }
+    }
+}
+uploadArchives.dependsOn lookForArtifacts
+
+task tagRelease << {
+    def url = 'https://api.github.com/repos/' + COMPANY + '/' + REPOSITORY_NAME + '/releases'
+    try {
+        def connection = (HttpURLConnection) new URL(url).openConnection()
+
+        connection.setRequestProperty("Authorization", "Basic " + getBase64EncodedCredentials())
+        connection.setRequestProperty("Accept", "application/vnd.github.v3+json")
+        connection.setConnectTimeout(10000)
+        connection.setReadTimeout(10000)
+        connection.setRequestMethod("POST")
+        connection.doOutput = true
+
+        def writer = new OutputStreamWriter(connection.outputStream)
+        def json = '{ "tag_name": "' + ARTIFACT_VERSION + '", "target_commitish": "releases" }'
+        writer.write(json)
+        writer.flush()
+        writer.close()
+
+        def responseCode = connection.getResponseCode()
+
+        if (responseCode != 201) {
+          throw new RuntimeException("Could not tag release, response was: " + responseCode)
+        }
+
+        return (201 == responseCode)
+    } catch (IOException exception) {
+        throw new RuntimeException("Could not tag release: " + exception.toString())
+    }
+}
+tagRelease.mustRunAfter uploadArchives
+
+def urlExists(String repositoryUrl) {
+    try {
+        def connection = (HttpURLConnection) new URL(repositoryUrl).openConnection()
+
+        connection.setRequestProperty("Authorization", "Basic " + getBase64EncodedCredentials())
+        connection.setRequestProperty("Accept", "application/vnd.github.v3+json")
+        connection.setConnectTimeout(10000)
+        connection.setReadTimeout(10000)
+        connection.setRequestMethod("HEAD")
+
+        def responseCode = connection.getResponseCode()
+
+        if (responseCode == 401) {
+          throw new RuntimeException("Unauthorized user - please provide valid username and token in gradle.properties file")
+        }
+
+        return (200 == responseCode)
+    } catch (IOException ignored) {
+        return false
+    }
+}
+
+def getBase64EncodedCredentials() {
+    def auth = VIBES_GITHUB_USERNAME + ":" + VIBES_GITHUB_PASSWORD;
+    def encodedAuth = auth.bytes.encodeBase64().toString()
+    return encodedAuth
+}
