@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -o
+
+# We launch from the `tools` directory because of an outstanding issue related
+# to relative path resolution in the emulator.
+#
+# See https://issuetracker.google.com/issues/37137213 for more details.
+cd ${ANDROID_SDK_ROOT}/tools && emulator -avd ReactNative > /dev/null 2>&1 &
