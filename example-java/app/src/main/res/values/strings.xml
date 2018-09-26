@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<resources>
+    <string name="app_name">*VibesExampleApp*</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_email">johndoe@example.com</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="vibes_device_id">Vibes Device ID</string>
+    <string name="token">Token</string>
+    <string name="btn_unregister_push">UNREGISTER PUSH</string>
+    <string name="btn_register_push">REGISTER PUSH</string>
+    <string name="btn_unregister_device">UNREGISTER DEVICE</string>
+    <string name="btn_register_device">REGISTER DEVICE</string>
+    <string name="vibes_device_unregistered">[NOT REGISTER]</string>
+    <string name="tab_home_title">HOME</string>
+    <string name="tab_inapp_messages_title">MESSAGES</string>
+    <string name="not_registered">[Not Registered]</string>
+    <string name="registered">Registered</string>
+    <string name="channel_name">Example Push Channel</string>
+    <string name="channel_description">Example Push Channel Description</string>
+    <string name="title_activity_deep_link">DeepLinkActivity</string>
+</resources>
