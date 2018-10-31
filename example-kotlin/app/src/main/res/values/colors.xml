@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="input_login">#b7b7b7</color>
+    <color name="btn_login_bg">#247ad6</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="green">#57d674</color>
+    <color name="red">#FF0000</color>
+    <color name="vibesTextFieldBorderColor">#b7b7b7</color>
+    <color name="vibesTitleLabel">#212121</color>
+    <color name="vibesValueLabel">#757575</color>
+    <color name="vibesViewBackground">#f7f7f7</color>
+    <color name="vibesButtonColor">#247ad6</color>
+    <color name="vibesTextFieldTextColor">#212121</color>
+    <color name="vibesTextFieldPlaceHolderTextColor">#b7b7b7</color>
+    <color name="vibesDisabledButtonColor">#D3D3D3</color>
+</resources>
