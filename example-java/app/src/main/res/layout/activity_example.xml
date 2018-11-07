@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical"
+    android:id="@+id/main_overlay">
+
+    <ProgressBar android:indeterminate="true"
+        android:id="@+id/loadingBar"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:elevation="7dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:background="@color/vibesViewBackground"
+        android:paddingTop="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="@string/token"
+            android:textColor="@color/vibesTitleLabel"
+            android:textSize="17sp"
+            />
+        <TextView
+            android:id="@+id/authTokenView"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/vibesValueLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/not_registered" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_height="wrap_content"
+                android:text="@string/vibes_device_id"
+                android:textColor="@color/vibesTitleLabel"
+                android:textSize="17sp"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:id="@+id/registeredLabelView"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/red"
+                android:textSize="17sp"
+                android:layout_marginTop="10dp"
+                android:text="@string/not_registered" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/deviceIdView"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/vibesValueLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/not_registered" />
+        <Button
+            android:id="@+id/deviceRegBtn"
+            android:background="@color/vibesButtonColor"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:text="@string/btn_register_device"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/pushRegBtn"
+            android:background="@color/vibesDisabledButtonColor"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:enabled="false"
+            android:text="@string/btn_register_push"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+        <ImageView
+            android:id="@+id/loginImageView"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/vibes_icon"
+            android:layout_alignParentBottom="true"
+            android:contentDescription="icon" />
+    </RelativeLayout>
+</RelativeLayout>
