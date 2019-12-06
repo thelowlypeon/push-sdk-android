@@ -1,0 +1,49 @@
+apply plugin: 'maven'
+
+repositories {
+    maven { url "https://raw.github.com/synergian/wagon-git/releases" }
+}
+
+configurations {
+    deployToArchiva
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    deployToArchiva "org.apache.maven.wagon:wagon-http:2.2"
+}
+
+task androidJavadocs(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.sourceFiles
+}
+
+task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    classifier = 'javadoc'
+    from androidJavadocs.destinationDir
+}
+
+artifacts {
+    archives androidJavadocsJar
+}
+
+task publish(dependsOn: ['uploadArchives'])
+
+uploadArchives {
+    repositories.mavenDeployer {
+        configuration = configurations.deployToArchiva
+        repository(url: "http://repo.corp.vibes.com/archiva/repository/internal/") {
+            authentication(userName: "$System.env.VIBES_ARCHIVA_USERNAME", password: "$System.env.VIBES_ARCHIVA_PASSWORD")
+        }
+
+        uniqueVersion = true
+
+        pom.project {
+            groupId = ARTIFACT_PACKAGE
+            version = ARTIFACT_VERSION
+            artifactId = ARTIFACT_NAME
+            packaging ARTIFACT_PACKAGING
+        }
+    }
+}
