@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+<ruleset name="Vibes Push SDK Rules"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+
+    <description>Custom Ruleset for Vibes SDK</description>
+
+    <exclude-pattern>.*/R.java</exclude-pattern>
+    <exclude-pattern>.*/gen/.*</exclude-pattern>
+    <exclude-pattern>.*/*Test.java</exclude-pattern>
+
+    <!-- Android -->
+    <rule ref="category/java/errorprone.xml/CallSuperFirst" />
+
+    <rule ref="category/java/errorprone.xml/CallSuperLast" />
+
+    <rule ref="category/java/errorprone.xml/DoNotHardCodeSDCard" />
+
+    <!-- Clone -->
+    <rule ref="category/java/errorprone.xml/CloneMethodMustBePublic" />
+
+    <rule ref="category/java/errorprone.xml/CloneMethodMustImplementCloneable" />
+
+    <rule ref="category/java/errorprone.xml/CloneMethodReturnTypeMustMatchClassName" />
+
+    <rule ref="category/java/errorprone.xml/CloneThrowsCloneNotSupportedException" />
+
+    <rule ref="category/java/errorprone.xml/ProperCloneImplementation" />
+
+    <!-- Finalizers -->
+    <rule ref="category/java/errorprone.xml/AvoidCallingFinalize" />
+
+    <rule ref="category/java/errorprone.xml/EmptyFinalizer" />
+
+    <rule ref="category/java/errorprone.xml/FinalizeDoesNotCallSuperFinalize" />
+
+    <rule ref="category/java/errorprone.xml/FinalizeOnlyCallsSuperFinalize" />
+
+    <rule ref="category/java/errorprone.xml/FinalizeOverloaded" />
+
+    <rule ref="category/java/errorprone.xml/FinalizeShouldBeProtected" />
+
+    <!-- Imports -->
+
+    <rule ref="category/java/bestpractices.xml/UnusedImports" />
+
+    <rule ref="category/java/errorprone.xml/ImportFromSamePackage" />
+
+    <rule ref="category/java/codestyle.xml/DontImportJavaLang" />
+
+    <rule ref="category/java/codestyle.xml/DuplicateImports" />
+
+    <rule ref="category/java/codestyle.xml/UnnecessaryFullyQualifiedName" />
+
+    <!-- Logging-java -->
+
+    <rule ref="category/java/errorprone.xml/InvalidSlf4jMessageFormat" />
+
+    <rule ref="category/java/errorprone.xml/LoggerIsNotStaticFinal" />
+
+    <rule ref="category/java/errorprone.xml/MoreThanOneLogger" />
+
+    <rule ref="category/java/bestpractices.xml/AvoidPrintStackTrace" />
+
+    <rule ref="category/java/bestpractices.xml/GuardLogStatement" />
+
+    <rule ref="category/java/bestpractices.xml/SystemPrintln" />
+
+    <!-- Strings -->
+
+    <rule ref="category/java/errorprone.xml/AvoidDuplicateLiterals" />
+
+    <rule ref="category/java/errorprone.xml/StringBufferInstantiationWithChar" />
+
+    <rule ref="category/java/errorprone.xml/UnnecessaryCaseChange" />
+
+    <rule ref="category/java/errorprone.xml/UseEqualsToCompareStrings" />
+
+    <rule ref="category/java/bestpractices.xml/AvoidStringBufferField" />
+
+    <rule ref="category/java/performance.xml/AppendCharacterWithChar" />
+
+    <rule ref="category/java/performance.xml/ConsecutiveAppendsShouldReuse" />
+
+    <rule ref="category/java/performance.xml/ConsecutiveLiteralAppends" />
+
+    <rule ref="category/java/performance.xml/InefficientEmptyStringCheck" />
+
+    <rule ref="category/java/performance.xml/InefficientStringBuffering" />
+
+    <rule ref="category/java/performance.xml/InsufficientStringBufferDeclaration" />
+
+    <rule ref="category/java/performance.xml/StringInstantiation" />
+
+    <rule ref="category/java/performance.xml/StringToString" />
+
+    <rule ref="category/java/performance.xml/UseIndexOfChar" />
+
+    <rule ref="category/java/performance.xml/UselessStringValueOf" />
+
+    <rule ref="category/java/performance.xml/UseStringBufferLength" />
+
+    <!-- Basic -->
+
+<!--    <rule ref="category/java/errorprone.xml/EmptyCatchBlock" />-->
+
+    <rule ref="category/java/errorprone.xml/AvoidBranchingStatementAsLastInLoop" />
+
+    <rule ref="category/java/errorprone.xml/AvoidDecimalLiteralsInBigDecimalConstructor" />
+
+    <rule ref="category/java/errorprone.xml/AvoidMultipleUnaryOperators" />
+
+    <rule ref="category/java/errorprone.xml/AvoidUsingOctalValues" />
+
+    <rule ref="category/java/errorprone.xml/BrokenNullCheck" />
+
+    <rule ref="category/java/errorprone.xml/CheckSkipResult" />
+
+    <rule ref="category/java/errorprone.xml/ClassCastExceptionWithToArray" />
+
+    <rule ref="category/java/errorprone.xml/DontUseFloatTypeForLoopIndices" />
+
+    <rule ref="category/java/errorprone.xml/JumbledIncrementer" />
+
+    <rule ref="category/java/errorprone.xml/MisplacedNullCheck" />
+
+    <rule ref="category/java/errorprone.xml/OverrideBothEqualsAndHashcode" />
+
+    <rule ref="category/java/errorprone.xml/ReturnFromFinallyBlock" />
+
+    <rule ref="category/java/errorprone.xml/UnconditionalIfStatement" />
+
+    <rule ref="category/java/multithreading.xml/AvoidThreadGroup" />
+
+    <rule ref="category/java/multithreading.xml/DontCallThreadRun" />
+
+    <rule ref="category/java/multithreading.xml/DoubleCheckedLocking" />
+
+    <rule ref="category/java/bestpractices.xml/AvoidUsingHardCodedIP" />
+
+    <rule ref="category/java/bestpractices.xml/CheckResultSet" />
+
+    <rule ref="category/java/codestyle.xml/ExtendsObject" />
+
+    <rule ref="category/java/codestyle.xml/ForLoopShouldBeWhileLoop" />
+
+    <rule ref="category/java/performance.xml/BigIntegerInstantiation" />
+
+    <rule ref="category/java/performance.xml/BooleanInstantiation" />
+
+    <rule ref="category/java/design.xml/CollapsibleIfStatements" />
+
+    <rule ref="category/java/design.xml/SimplifiedTernary" />
+
+
+    <!-- Naming -->
+
+    <rule ref="category/java/errorprone.xml/AvoidFieldNameMatchingMethodName" />
+
+    <rule ref="category/java/errorprone.xml/AvoidFieldNameMatchingTypeName" />
+
+    <rule ref="category/java/errorprone.xml/MethodWithSameNameAsEnclosingClass" />
+
+    <rule ref="category/java/errorprone.xml/SuspiciousEqualsMethodName" />
+
+    <rule ref="category/java/errorprone.xml/SuspiciousHashcodeMethodName" />
+
+    <rule ref="category/java/codestyle.xml/AvoidDollarSigns" />
+
+    <rule ref="category/java/codestyle.xml/BooleanGetMethodName" />
+
+<!--    <rule ref="category/java/codestyle.xml/ClassNamingConventions" />-->
+
+    <rule ref="category/java/codestyle.xml/GenericsNaming" />
+
+<!--    <rule ref="category/java/codestyle.xml/LongVariable" />-->
+
+    <rule ref="category/java/codestyle.xml/MethodNamingConventions" />
+
+    <rule ref="category/java/codestyle.xml/NoPackage" />
+
+    <rule ref="category/java/codestyle.xml/PackageCase" />
+
+    <rule ref="category/java/codestyle.xml/ShortClassName" />
+
+    <rule ref="category/java/codestyle.xml/ShortMethodName" />
+
+<!--    <rule ref="category/java/codestyle.xml/ShortVariable" />-->
+
+</ruleset>

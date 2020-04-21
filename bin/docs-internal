@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+mkdir -p docs/internal
+rm -rf docs/internal/*
+./gradlew internalJavadoc
