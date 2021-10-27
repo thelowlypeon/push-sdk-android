@@ -136,10 +136,19 @@ public class NotificationFactory {
             resourceId = context.getApplicationInfo().icon;
         }
 
-        builder.setContentTitle(pushModel.getTitle())
-                .setSmallIcon(resourceId)
-                .setContentText(pushModel.getBody())
-                .setAutoCancel(true);
+        String body = pushModel.getBody();
+        // https://customercare.vibes.com/hc/en-us/articles/360016295312-Push-Notification-Message-Lengths
+        if (body.length() <= 37) {
+            builder.setContentTitle(pushModel.getTitle())
+                    .setSmallIcon(resourceId)
+                    .setContentText(body)
+                    .setAutoCancel(true);
+        } else {
+            builder.setContentTitle(pushModel.getTitle())
+                    .setSmallIcon(resourceId)
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(body))
+                    .setAutoCancel(true);
+        }
     }
 
 
