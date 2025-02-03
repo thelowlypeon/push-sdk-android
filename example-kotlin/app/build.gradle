@@ -1,0 +1,129 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
+}
+
+android {
+    namespace "com.android.exampleapp.kotlin"
+    compileSdkVersion 34
+    defaultConfig {
+        applicationId "com.android.exampleapp.kotlin"
+        minSdkVersion 23
+        targetSdkVersion 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        multiDexEnabled true
+
+        manifestPlaceholders = [vibesAppId: "<appId>",
+                                vibesApiUrl: "<appUrl>"]
+    }
+
+    packaging {
+        resources {
+            excludes += [
+                    "META-INF/DEPENDENCIES"
+            ]
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    buildFeatures {
+        viewBinding true // Add ViewBinding support if required
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // AndroidX dependencies
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.android.material:material:1.9.0'
+
+    // Firebase dependencies
+    implementation platform('com.google.firebase:firebase-bom:33.6.0')
+    implementation 'com.google.firebase:firebase-core:21.1.1'
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-installations'
+
+    // AndroidX lifecycle components
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.6.2'
+
+    // Testing dependencies
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // Image loading library
+    implementation 'com.squareup.picasso:picasso:2.8'
+
+    // Multidex
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+    // ButterKnife
+    implementation 'com.jakewharton:butterknife:10.2.3'
+    kapt 'com.jakewharton:butterknife-compiler:10.2.3'
+
+    // Kotlin dependencies
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10" // Use modern Kotlin stdlib
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.9.10"
+
+    // Testing with Kotlin
+    testImplementation "org.jetbrains.kotlin:kotlin-test:1.9.10"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:1.9.10"
+
+    // Mockito for testing
+    testImplementation "org.mockito:mockito-core:5.5.0"
+
+    // Vibes dependency: for live project use the commented line
+    implementation project(":vibes")
+    // implementation "com.vibes.vibes:vibes:4.4.3"
+}
+
+// <app/build.gradle>
+
+// https://stackoverflow.com/questions/65380359/lomboks-access-to-jdk-compilers-internal-packages-incompatible-with-java-16
+
+// enable internal JDK API access at runtime
+tasks.withType(JavaCompile).configureEach {
+    options.fork = true
+    options.forkOptions.jvmArgs += [
+            // essential for butterknife
+    '--add-opens=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED',
+
+    // if you need Glide or LomBok
+    // these may not be the exact list, but it works for me
+    '--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED',
+    '--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED',
+    '--add-opens=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED',
+    '--add-opens=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED',
+    '--add-opens=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED',
+    '--add-opens=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED',
+    '--add-opens=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED',
+    '--add-opens=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED',
+    '--add-opens=jdk.compiler/com.sun.tools.javac.jvm=ALL-UNNAMED',
+    ]
+}

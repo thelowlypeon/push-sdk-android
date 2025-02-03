@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "308618267990",
+    "project_id": "integrated-test-apps",
+    "storage_bucket": "integrated-test-apps.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308618267990:android:cb5ba53f4fdd077e76daf7",
+        "android_client_info": {
+          "package_name": "com.android.exampleapp.kotlin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoE43s5kgfslJzqFutpZX8KHU9XUzrxoA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308618267990:android:19e419f2dc07191876daf7",
+        "android_client_info": {
+          "package_name": "com.vibes.androidsdkexampleapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoE43s5kgfslJzqFutpZX8KHU9XUzrxoA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

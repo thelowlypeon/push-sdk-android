@@ -1,0 +1,82 @@
+apply plugin: 'maven-publish'
+apply plugin: 'com.android.library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'org.apache.maven.wagon:wagon-http:3.4.1'
+}
+
+task androidSourcesJar(type: Jar) {
+    archiveClassifier = 'sources'
+    from android.sourceSets.main.java.sourceFiles
+}
+
+task androidJavadocs(type: Javadoc) {
+    failOnError = false
+    source = android.sourceSets.main.java.sourceFiles
+}
+
+task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    archiveClassifier = 'javadoc'
+    from androidJavadocs.destinationDir
+}
+
+artifacts {
+    archives androidJavadocsJar
+}
+
+tasks.register("lookForArtifacts") {
+    doLast {
+        if (REPOSITORY_NAME == 'GITHUB') {
+            def repositoryUrl = 'https://api.github.com/repos/' + COMPANY + '/' + REPOSITORY_PROJECT + '/releases/tags/' + ARTIFACT_VERSION
+            if (urlExists(repositoryUrl)) {
+                throw new RuntimeException("Artifact with version " + ARTIFACT_VERSION + " already exists - not executing uploadArchives")
+            }
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact androidSourcesJar
+            artifact androidJavadocsJar
+
+            groupId = ARTIFACT_PACKAGE
+            artifactId = ARTIFACT_NAME
+            version = ARTIFACT_VERSION
+            pom {
+                packaging = ARTIFACT_PACKAGING
+            }
+        }
+    }
+}
+
+def getBase64EncodedCredentials() {
+    def githubUsername = System.getenv("VIBES_GITHUB_USERNAME")
+    def githubPassword = System.getenv("VIBES_GITHUB_PASSWORD")
+    def auth = githubUsername + ":" + githubPassword
+    return auth.bytes.encodeBase64().toString()
+}
+
+static def urlExists(String repositoryUrl) {
+    try {
+        def connection = (HttpURLConnection) new URL(repositoryUrl).openConnection()
+
+        connection.setRequestProperty("Authorization", "Basic " + getBase64EncodedCredentials())
+        connection.setRequestProperty("Accept", "application/vnd.github.v3+json")
+        connection.setConnectTimeout(10000)
+        connection.setReadTimeout(10000)
+        connection.setRequestMethod("HEAD")
+
+        def responseCode = connection.getResponseCode()
+
+        if (responseCode == 401) {
+            throw new RuntimeException("Unauthorized user - please provide valid username and token in gradle.properties file")
+        }
+
+        return (200 == responseCode)
+    } catch (IOException ignored) {
+        return false
+    }
+}
